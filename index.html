@@ -7,6 +7,9 @@
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
+    html, :root {
+      font-size: 18px;
+    }
     body {
       font-family: -apple-system, 'Helvetica Neue', Helvetica, Arial, sans-serif;
       background: white;
@@ -21,9 +24,9 @@
       margin: 0 auto;
     }
 
-    .app-header { text-align: center; margin-bottom: 1rem; }
-    .app-header h1 { font-size: 22px; font-weight: 700; letter-spacing: -0.3px; }
-    .app-header p  { font-size: 14px; color: #8e8e93; margin-top: 4px; }
+    .header { text-align: center; margin-bottom: 1rem; }
+    .header h1 { font-size: 22px; font-weight: 700; letter-spacing: -0.3px; }
+    .header p  { font-size: 14px; color: #8e8e93; margin-top: 4px; }
 
     .card {
       border-radius: 2px;
@@ -35,7 +38,7 @@
     .title-wrap { padding: 10px 16px 14px; }
     .title-wrap label {
       display: block;
-      font-size: 0.8rem;
+      font-size: 0.85rem;
       font-weight: 600;
       color: grey;
       margin-bottom: 0.25rem;
@@ -109,12 +112,12 @@
       letter-spacing: -0.5px;
     }
 
-    .servings-per-container { font-size: 13px; margin-top: 3px; }
+    .servings-per-container { font-size: 0.85rem; margin-top: 3px; }
 
     .serving-size {
       display: flex;
       justify-content: space-between;
-      font-size: 13px;
+      font-size: 0.85rem;
       font-weight: 700;
       margin-top: 1px;
     }
@@ -123,7 +126,7 @@
     .bar-medium { height: 5px; background: black; margin: 2px 0; }
     .bar-thin   { height: 1px; background: black; }
 
-    .per-serving { font-size: 11px; }
+    .per-serving { font-size: 13px; }
 
     .calories-row {
       display: flex;
@@ -135,7 +138,7 @@
 
     .pct-dv {
       text-align: right;
-      font-size: 11px;
+      font-size: 13px;
       font-weight: 700;
       margin-top: 2px;
     }
@@ -145,7 +148,7 @@
       justify-content: space-between;
       align-items: baseline;
       padding: 2px 0;
-      font-size: 13px;
+      font-size: 0.85rem;
     }
     .row + .row { border-top: 1px solid black; }
     .nutrient-row-left { display: flex; align-items: baseline; gap: 4px; }
@@ -156,14 +159,14 @@
     /* Vitamins 2-column grid */
     .small-row { display: flex; }
     .small-row + .small-row { border-top: 1px solid black; }
-    .mineral-label { flex: 1; padding: 2px 0; font-size: 11px; }
+    .mineral-label { flex: 1; padding: 2px 0; font-size: 13px; }
     .mineral-label + .mineral-label { padding-left: 10px; }
 
     .footer {
       border-top: 1px solid black;
       margin-top: 4px;
       padding-top: 4px;
-      font-size: 9px;
+      font-size: 11px;
       line-height: 1.4;
     }
   </style>
@@ -171,7 +174,7 @@
 <body>
 
 <div id="input-form">
-  <div class="app-header">
+  <div class="header">
     <h1>Art Nutrition Facts</h1>
   </div>
 
@@ -192,17 +195,17 @@
 
 <script>
   const mainProperties = [
-    { id: 'pretension', label: 'Pretension',   unit: 'g',  dv: 50  },
-    { id: 'sincerity',  label: 'Sincerity',    unit: 'g',  dv: 50  },
-    { id: 'melancholy', label: 'Melancholy',   unit: 'g',  dv: 30  },
-    { id: 'trauma',     label: 'Trauma',       unit: 'g',  dv: 25  },
-    { id: 'confusion',  label: 'Bewilderment', unit: 'mg', dv: 200 },
+    { id: 'pretension', label: 'Pretension', unit: 'g',  dv: 50  },
+    { id: 'sincerity',  label: 'Sincerity',  unit: 'g',  dv: 50  },
+    { id: 'trauma',     label: 'Trauma',     unit: 'g',  dv: 25  },
+    { id: 'melancholy', label: 'Melancholy', unit: 'g',  dv: 30  },
+    { id: 'confusion',  label: 'Confusion',  unit: 'mg', dv: 200 },
   ];
   const minerals = [
-    { id: 'nostalgia', label: 'Nostalgia',    unit: 'mg', dv: 350 },
-    { id: 'tension',   label: 'Studiousness', unit: 'mg', dv: 150 },
-    { id: 'whimsy',    label: 'Whimsy',       unit: 'g',  dv: 25  },
     { id: 'activism',  label: 'Activism',     unit: 'g',  dv: 35  },
+    { id: 'tension',   label: 'Studiousness', unit: 'mg', dv: 150 },
+    { id: 'nostalgia', label: 'Nostalgia',    unit: 'mg', dv: 350 },
+    { id: 'whimsy',    label: 'Whimsy',       unit: 'g',  dv: 25  },
   ];
   const allProperties = [...mainProperties, ...minerals];
   const vals = Object.fromEntries(allProperties.map(n => [n.id, 0]));
