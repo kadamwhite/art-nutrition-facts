@@ -251,16 +251,6 @@
     const round = n => Math.round(vals[n.id] / 100 * n.dv) + n.unit;
     const percent = n => vals[n.id] + '%';
 
-    const nutritionRendered = mainProperties.map(n => `
-      <div class="row">
-        <div class="nutrient-row-left">
-          <span class="nutrient-label" contenteditable>${n.label}</span>
-          <span class="nutrient-amt" contenteditable>${round(n)}</span>
-        </div>
-        <span class="nutrient-dv" contenteditable>${percent(n)}</span>
-      </div>`).join('');
-
-      console.log( minerals );
     const mineralsRendered = [];
     for (let i = 0; i < minerals.length; i += 2) {
       const pair = minerals.slice(i, i + 2);
