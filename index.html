@@ -257,7 +257,7 @@
           <span class="nutrient-label" contenteditable>${n.label}</span>
           <span class="nutrient-amt" contenteditable>${round(n)}</span>
         </div>
-        <span class="nutrient-dv">${percent(n)}</span>
+        <span class="nutrient-dv" contenteditable>${percent(n)}</span>
       </div>`).join('');
 
       console.log( minerals );
@@ -265,7 +265,7 @@
     for (let i = 0; i < minerals.length; i += 2) {
       const pair = minerals.slice(i, i + 2);
       mineralsRendered.push(`<div class="small-row">
-        ${pair.map(n => `<div class="mineral-label">${n.label} <strong>${percent(n)}</strong></div>`).join('')}
+        ${pair.map(n => `<div class="mineral-label"><span contenteditable>${n.label}</span> <strong contenteditable>${percent(n)}</strong></div>`).join('')}
       </div>`);
     }
 
@@ -288,9 +288,9 @@
         <div class="row">
           <div class="nutrient-row-left">
             <span class="nutrient-label" contenteditable>${n.label}</span>
-            <span class="nutrient-amt">${round(n)}</span>
+            <span class="nutrient-amt" contenteditable>${round(n)}</span>
           </div>
-          <span class="nutrient-dv">${percent(n)}</span>
+          <span class="nutrient-dv" contenteditable>${percent(n)}</span>
         </div>`).join('')}
       <div class="bar-thick"></div>
       ${mineralsRendered.join('')}
