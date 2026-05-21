@@ -5,19 +5,20 @@ const mainProperties = [
 	{ id: 'trauma',     label: 'Trauma',     unit: 'g',  dv: 25  },
 	{ id: 'melancholy', label: 'Melancholy', unit: 'g',  dv: 30  },
 	{ id: 'confusion',  label: 'Confusion',  unit: 'mg', dv: 200 },
-];
+].map( ( i ) => ( { ...i, type: 'ingredient' } ) );
 const minerals = [
 	{ id: 'activism',  label: 'Activism',     unit: 'g',  dv: 35  },
 	{ id: 'tension',   label: 'Studiousness', unit: 'mg', dv: 150 },
 	{ id: 'nostalgia', label: 'Nostalgia',    unit: 'mg', dv: 350 },
 	{ id: 'whimsy',    label: 'Whimsy',       unit: 'g',  dv: 25  },
-];
+].map( ( m ) => ( { ...m, type: 'mineral' } ) );
 /* eslint-enable */
 
 const allProperties = [ ...mainProperties, ...minerals ];
-const properties = Object.fromEntries(
+const propertyValues = Object.fromEntries(
 	allProperties.map( ( n ) => [ n.id, 0 ] )
 );
+console.log( propertyValues );
 
 // Build slider rows
 const rowsEl = document.getElementById( 'slider-rows' );
@@ -35,7 +36,7 @@ allProperties.forEach( ( n ) => {
 	const input = row.querySelector( 'input' );
 	const valEl = document.getElementById( 'v-' + n.id );
 	input.addEventListener( 'input', () => {
-		properties[ n.id ] = +input.value;
+		propertyValues[ n.id ] = +input.value;
 		valEl.textContent = input.value;
 	} );
 } );
@@ -72,11 +73,11 @@ const updateAndShowSaveButton = ( title ) => {
 document.getElementById( 'ok-button' ).addEventListener( 'click', () => {
 	const title =
 		document.getElementById( 'art-title' ).value.trim() || 'Untitled';
-	const total = allProperties.reduce( ( s, n ) => s + properties[ n.id ], 0 );
+	const total = allProperties.reduce( ( s, n ) => s + propertyValues[ n.id ], 0 );
 
 	const round = ( n ) =>
-		Math.round( ( properties[ n.id ] / 100 ) * n.dv ) + n.unit;
-	const percent = ( n ) => properties[ n.id ] + '%';
+		Math.round( ( propertyValues[ n.id ] / 100 ) * n.dv ) + n.unit;
+	const percent = ( n ) => propertyValues[ n.id ] + '%';
 
 	const mineralsRendered = [];
 	for ( let i = 0; i < minerals.length; i += 2 ) {
