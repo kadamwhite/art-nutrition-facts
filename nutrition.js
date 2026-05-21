@@ -76,7 +76,8 @@ document.getElementById( 'ok-button' ).addEventListener( 'click', () => {
 		</div>` );
 	}
 
-	document.getElementById( 'label' ).innerHTML = `
+	document.getElementById( 'rendered' ).innerHTML = `
+	<div class="nutrition-facts">
 		<div class="form-title">Art Facts</div>
 		<div class="servings-per-container">${ '' /* Per artistic experience */ }</div>
 		<div class="serving-size">
@@ -107,9 +108,9 @@ document.getElementById( 'ok-button' ).addEventListener( 'click', () => {
 		${ mineralsRendered.join( '' ) }
 		<div class="footer">*The % Daily Value (DV) tells you how much of this attribute a single viewing contributes to a daily aesthetic experience. ${
 			'' /* 1,000 units is used for general art nutrition advice. */
-		}<br><em>${ title === 'Untitled' ? '' : title }</em></div>`;
+		}<br><em>${ title === 'Untitled' ? '' : title }</em></div></div>`;
 
 	document.getElementById( 'input-form' ).style.display = 'none';
-	document.getElementById( 'label' ).style.display = 'block';
+	document.getElementById( 'rendered' ).style.display = 'block';
 	window.scrollTo( 0, 0 );
 } );

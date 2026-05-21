@@ -121,16 +121,16 @@ button.ok-button {
 	-webkit-tap-highlight-color: transparent;
 }
 
-#label {
+#rendered {
 	display: none;
-	padding: 2rem 0.75rem 80px;
-	max-width: 420px;
+	padding: 1rem;
+	max-width: 350px;
 	margin: 0 auto;
 }
 
 .nutrition-facts {
 	border: 3px solid black;
-	padding: 6px 8px;
+	padding: 1.5rem 0.5rem;
 	background: white;
 	font-family: Arial, Helvetica, sans-serif;
 	box-shadow: 0 4px 20px rgba(0, 0, 0, 0.12);
