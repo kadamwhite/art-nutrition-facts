@@ -17,6 +17,7 @@ const minerals = [
 const params = new URLSearchParams( window.location.search );
 const formQueryParam = params.get( 'form' );
 
+let autorender = false;
 if ( formQueryParam ) {
 	try {
 		const savedProps = JSON.parse( formQueryParam );
@@ -35,7 +36,7 @@ if ( formQueryParam ) {
 			}
 		} );
 
-		setTimeout(renderForm);
+		autorender = true;
 	} catch ( e ) {
 		// Die silently in a ditch.
 	}
@@ -169,4 +170,8 @@ const renderForm = () => {
 	window.scrollTo( 0, 0 );
 }
 
-document.getElementById( 'ok-button' ).addEventListener( 'click', renderForm );
+if ( autorender ) {
+	renderForm();
+} else {
+	document.getElementById( 'ok-button' ).addEventListener( 'click', renderForm );
+}
