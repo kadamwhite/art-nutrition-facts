@@ -20,22 +20,22 @@ const formQueryParam = params.get( 'form' );
 if ( formQueryParam ) {
 	try {
 		const savedProps = JSON.parse( formQueryParam );
-		if ( savedProps ) {
-			if ( savedProps?.title ) {
-				document.getElementById( 'art-title' ).value = savedProps.title;
-			}
-
-			// Repopulate property arrays.
-			ingredients.length = 0;
-			minerals.length = 0;
-			( savedProps?.properties || [] ).forEach( ( ingredient ) => {
-				if ( ingredient.type === 'mineral' ) {
-					minerals.push( ingredient );
-				} else {
-					ingredients.push( ingredient );
-				}
-			} );
+		if ( savedProps?.title ) {
+			document.getElementById( 'art-title' ).value = savedProps.title;
 		}
+
+		// Repopulate property arrays.
+		ingredients.length = 0;
+		minerals.length = 0;
+		( savedProps?.properties || [] ).forEach( ( ingredient ) => {
+			if ( ingredient.type === 'mineral' ) {
+				minerals.push( ingredient );
+			} else {
+				ingredients.push( ingredient );
+			}
+		} );
+
+		setTimeout(renderForm);
 	} catch ( e ) {
 		// Die silently in a ditch.
 	}
@@ -43,7 +43,7 @@ if ( formQueryParam ) {
 
 const allProperties = [ ...ingredients, ...minerals ];
 const propertyValues = Object.fromEntries(
-	allProperties.map( ( n ) => [ n.id, 0 ] )
+	allProperties.map( ( n ) => [ n.id, n.value || 0 ] )
 );
 
 // Build slider rows
@@ -99,7 +99,7 @@ const updateAndShowSaveButton = ( title ) => {
 	saveLink.style.display = 'inline-block';
 }
 
-document.getElementById( 'ok-button' ).addEventListener( 'click', () => {
+const renderForm = () => {
 	const title =
 		document.getElementById( 'art-title' ).value.trim() || 'Untitled';
 	const total = allProperties.reduce( ( s, n ) => s + propertyValues[ n.id ], 0 );
@@ -167,4 +167,6 @@ document.getElementById( 'ok-button' ).addEventListener( 'click', () => {
 	updateAndShowSaveButton( title );
 
 	window.scrollTo( 0, 0 );
-} );
+}
+
+document.getElementById( 'ok-button' ).addEventListener( 'click', renderForm );
