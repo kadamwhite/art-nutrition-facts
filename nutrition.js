@@ -1,5 +1,5 @@
 /* eslint-disable */// Align for readability.
-const mainProperties = [
+const ingredients = [
 	{ id: 'pretension', label: 'Pretension', unit: 'g',  dv: 50  },
 	{ id: 'sincerity',  label: 'Sincerity',  unit: 'g',  dv: 50  },
 	{ id: 'trauma',     label: 'Trauma',     unit: 'g',  dv: 25  },
@@ -14,11 +14,37 @@ const minerals = [
 ].map( ( m ) => ( { ...m, type: 'mineral' } ) );
 /* eslint-enable */
 
-const allProperties = [ ...mainProperties, ...minerals ];
+const params = new URLSearchParams( window.location.search );
+const formQueryParam = params.get( 'form' );
+
+if ( formQueryParam ) {
+	try {
+		const savedProps = JSON.parse( formQueryParam );
+		if ( savedProps ) {
+			if ( savedProps?.title ) {
+				document.getElementById( 'art-title' ).value = savedProps.title;
+			}
+
+			// Repopulate property arrays.
+			ingredients.length = 0;
+			minerals.length = 0;
+			( savedProps?.properties || [] ).forEach( ( ingredient ) => {
+				if ( ingredient.type === 'mineral' ) {
+					minerals.push( ingredient );
+				} else {
+					ingredients.push( ingredient );
+				}
+			} );
+		}
+	} catch ( e ) {
+		// Die silently in a ditch.
+	}
+}
+
+const allProperties = [ ...ingredients, ...minerals ];
 const propertyValues = Object.fromEntries(
 	allProperties.map( ( n ) => [ n.id, 0 ] )
 );
-console.log( propertyValues );
 
 // Build slider rows
 const rowsEl = document.getElementById( 'slider-rows' );
@@ -30,7 +56,7 @@ allProperties.forEach( ( n ) => {
 			<span class="nutrient-label">${ n.label }</span>
 			<span class="nutrient-value" id="v-${ n.id }">0</span>
 		</div>
-		<input type="range" min="0" max="100" value="0" aria-label="${ n.label }">`;
+		<input type="range" min="0" max="100" value="${ n.value || 0 }" aria-label="${ n.label }">`;
 	rowsEl.appendChild( row );
 
 	const input = row.querySelector( 'input' );
@@ -58,7 +84,10 @@ const updateAndShowSaveButton = ( title ) => {
 	const serializedState = encodeURIComponent(
 		JSON.stringify( {
 			title,
-			properties: allProperties,
+			properties: allProperties.map( ( ingredient, i ) => ( {
+				...ingredient,
+				value: propertyValues[ ingredient.id ],
+			} ) ),
 		} )
 	);
 
@@ -112,7 +141,7 @@ document.getElementById( 'ok-button' ).addEventListener( 'click', () => {
 		<div class="bar-thin"></div>
 		<div class="pct-dv">% Daily Value*</div>
 		<div class="bar-medium"></div>
-		${ mainProperties
+		${ ingredients
 			.map(
 				( n ) => `
 			<div class="row">
