@@ -15,7 +15,9 @@ const minerals = [
 /* eslint-enable */
 
 const allProperties = [ ...mainProperties, ...minerals ];
-const properties = Object.fromEntries( allProperties.map( ( n ) => [ n.id, 0 ] ) );
+const properties = Object.fromEntries(
+	allProperties.map( ( n ) => [ n.id, 0 ] )
+);
 
 // Build slider rows
 const rowsEl = document.getElementById( 'slider-rows' );
@@ -51,12 +53,29 @@ document.addEventListener( 'click', ( evt ) => {
 	timeout = Date.now() + 500;
 } );
 
+const updateAndShowSaveButton = ( title ) => {
+	const serializedState = encodeURIComponent(
+		JSON.stringify( {
+			title,
+			properties: allProperties,
+		} )
+	);
+
+	const saveUrl = new URL( window.location.href );
+	saveUrl.search = `?form=${ serializedState }`;
+
+	const saveLink = document.querySelector( '.save-link' );
+	saveLink.href = saveUrl.toString();
+	saveLink.style.display = 'inline-block';
+}
+
 document.getElementById( 'ok-button' ).addEventListener( 'click', () => {
 	const title =
 		document.getElementById( 'art-title' ).value.trim() || 'Untitled';
 	const total = allProperties.reduce( ( s, n ) => s + properties[ n.id ], 0 );
 
-	const round = ( n ) => Math.round( ( properties[ n.id ] / 100 ) * n.dv ) + n.unit;
+	const round = ( n ) =>
+		Math.round( ( properties[ n.id ] / 100 ) * n.dv ) + n.unit;
 	const percent = ( n ) => properties[ n.id ] + '%';
 
 	const mineralsRendered = [];
@@ -108,9 +127,14 @@ document.getElementById( 'ok-button' ).addEventListener( 'click', () => {
 		${ mineralsRendered.join( '' ) }
 		<div class="footer"><span contenteditable>*The % Daily Value (DV) tells you how much of this attribute a single viewing contributes to a daily aesthetic experience. ${
 			'' /* 1,000 units is used for general art nutrition advice. */
-		}</span><br><em contenteditable>${ title === 'Untitled' ? '' : title }</em></div></div>`;
+		}</span><br><em contenteditable>${
+			title === 'Untitled' ? '' : title
+		}</em></div></div>`;
 
 	document.getElementById( 'input-form' ).style.display = 'none';
 	document.getElementById( 'rendered' ).style.display = 'block';
+
+	updateAndShowSaveButton( title );
+
 	window.scrollTo( 0, 0 );
 } );
