@@ -106,9 +106,9 @@ document.getElementById( 'ok-button' ).addEventListener( 'click', () => {
 			.join( '' ) }
 		<div class="bar-thick"></div>
 		${ mineralsRendered.join( '' ) }
-		<div class="footer">*The % Daily Value (DV) tells you how much of this attribute a single viewing contributes to a daily aesthetic experience. ${
+		<div class="footer"><span contenteditable>*The % Daily Value (DV) tells you how much of this attribute a single viewing contributes to a daily aesthetic experience. ${
 			'' /* 1,000 units is used for general art nutrition advice. */
-		}<br><em>${ title === 'Untitled' ? '' : title }</em></div></div>`;
+		}</span><br><em contenteditable>${ title === 'Untitled' ? '' : title }</em></div></div>`;
 
 	document.getElementById( 'input-form' ).style.display = 'none';
 	document.getElementById( 'rendered' ).style.display = 'block';
