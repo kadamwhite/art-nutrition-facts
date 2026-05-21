@@ -258,3 +258,14 @@ button.ok-button {
 	font-size: 11px;
 	line-height: 1.4;
 }
+
+footer {
+	max-width: 350px;
+	margin: 4rem auto 0;
+}
+.credits {
+	font-size: 0.7rem;
+	padding: 0.5rem 1rem 1rem;
+	text-align: center;
+	text-transform: lowercase;
+}

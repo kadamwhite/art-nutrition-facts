@@ -7,27 +7,30 @@
   <link rel="stylesheet" href="./style.css" />
 </head>
 <body>
-
-<div id="input-form">
-  <div class="header">
-    <h1>Art Nutrition Facts</h1>
-  </div>
-
-  <div class="card">
-    <div class="title-wrap">
-      <label for="art-title">Artwork Title</label>
-      <input type="text" id="art-title" placeholder="Untitled"
-             autocomplete="off" autocorrect="off" spellcheck="false">
+  <div id="input-form">
+    <div class="header">
+      <h1>Art Nutrition Facts</h1>
     </div>
+
+    <div class="card">
+      <div class="title-wrap">
+        <label for="art-title">Artwork Title</label>
+        <input type="text" id="art-title" placeholder="Untitled"
+              autocomplete="off" autocorrect="off" spellcheck="false">
+      </div>
+    </div>
+
+    <div class="card" id="slider-rows"></div>
+
+    <button type="button" class="ok-button" id="ok-button">OK</button>
   </div>
 
-  <div class="card" id="slider-rows"></div>
+  <div id="rendered"></div>
 
-  <button type="button" class="ok-button" id="ok-button">OK</button>
-</div>
+  <footer>
+    <p class="credits">Made with love by kadamwhite</p>
+  </footer>
 
-<div id="rendered"></div>
-
-<script src="./nutrition.js"></script>
+  <script src="./nutrition.js"></script>
 </body>
 </html>
